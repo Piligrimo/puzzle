@@ -55,9 +55,11 @@ export default {
         new Mob(0, 1),
         new Mob(0, 2),
         new Mob(0, 3),
-        new Mob(1, 4),
+        new Mob(0, 4),
         new Mob(1, 5),
         new Mob(1, 6),
+        new Mob(1, 7),
+        new Mob(1, 8),
       ]
       this.right = []
       this.boatPosition = 'left'
