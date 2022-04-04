@@ -18,8 +18,8 @@
     </div>
     <div class="actions">
       <div class="boat-display">
-        <div v-for="(mob, i) in boat" :key="i" >
-          <img class="mob" :src="mob.image" @click="getOffBoat(mob)">
+        <div @click="getOffBoat(mob)" v-for="(mob, i) in boat" :key="i" >
+          <img class="mob" :src="mob.image" >
           <div class="close"/>
         </div>
       </div>
@@ -28,7 +28,7 @@
     </div>
 
     <div v-if="gameOver &&  ! win" class="game-over" @click="reset"><h1 class="game-over__text">Смэрть</h1></div>
-    <div v-if="allRight" class="game-over" @click="reset"><h1 class="game-over__text">Единственное действие</h1></div>
+    <div v-if="allRight" class="game-over" @click="reset"><h1 class="game-over__text">Ура!!!</h1></div>
   </div>
 </template>
 
