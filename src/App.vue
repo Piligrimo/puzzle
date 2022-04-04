@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="display-container">
-      <div class="side">
+      <div class="side left-side">
         <img class="mob" :src="mob.image" v-for="(mob, i) in left" :key="i"  @click="putInBoat(mob, 'left')"/>
       </div>
       <div class="river" :class="{right: boatPosition !== 'left' }">
@@ -12,23 +12,23 @@
           <div class="boat-bg"/>
         </div>
       </div>
-      <div class="side">
+      <div class="side right-side">
         <img class="mob" :src="mob.image" v-for="(mob, i) in right" :key="i"  @click="putInBoat(mob, 'right')"/>
       </div>
     </div>
-
-    <p>Убрать из лоджки</p>
-    <div>
-       <img class="mob-in-boat" :src="mob.image" v-for="(mob, i) in boat" :key="i" @click="getOffBoat(mob)"/>
-   </div>
     <div class="actions">
-      <button class="button" @click="sendBoat">Переправить лодку</button>
-      <button class="button" @click="reset">Заново</button>
+      <div class="boat-display">
+        <div v-for="(mob, i) in boat" :key="i" >
+          <img class="mob" :src="mob.image" @click="getOffBoat(mob)">
+          <div class="close"/>
+        </div>
+      </div>
+      <div class="button send" :class="{right: boatPosition !== 'left' }" @click="sendBoat"/>
+      <div class="button reset" @click="reset"/>
     </div>
 
     <div v-if="gameOver &&  ! win" class="game-over" @click="reset"><h1 class="game-over__text">Смэрть</h1></div>
     <div v-if="allRight" class="game-over" @click="reset"><h1 class="game-over__text">Единственное действие</h1></div>
-    <div v-if="!this.right,lengh >= 6">Диан, слыш, придумай шото</div>
   </div>
 </template>
 
@@ -62,7 +62,7 @@ export default {
   },
   computed: {
     allRight() {
-      return this.right.lengh >=  6
+      return this.right.length >=  6
     }
   },
   methods: {
@@ -118,22 +118,38 @@ export default {
 </script>
 
 <style>
+
 .display-container {
   display: flex;
   justify-content: space-between;
+  background-image: url('assets/water.png');
+  background-size: 30%;
   width: 100%;
-  height: 400px;
+  height: 450px;
 }
 .side  {
   width: 100px;
+  padding: 20px;
+  background-image: url('assets/grass.png');
+  background-size: 90%;
   background-color: rgb(55, 197, 55);
-  border-color: rgb(10, 70, 25);
 }
+
+.left-side {
+  border-right: 3px solid #0A6621;
+  border-top: 3px solid #0A6621;
+  border-radius: 0px 30px 0px 0px;
+}
+.right-side {
+  border-left: 3px solid #0A6621;
+  border-top: 3px solid #0A6621;
+  border-radius: 30px 0px  0px  0px;
+}
+
 .river {
   width: inherit;
-  padding: 1rem;
+  padding: 1rem 0;
   display: flex;
-  background-image: url'asset/water.png');
 }
 
 .right {
@@ -154,9 +170,8 @@ export default {
   height: 60px;
 }
 .mob-in-boat {
-  margin-top: -10px;
-  height: 50px;
-
+  margin-top: -15px;
+  height: 60px;
 }
 
 .game-over {
@@ -176,6 +191,7 @@ export default {
 
 .boat-bg {
   background-image: url('assets/Ольга в лодке.png');
+  background-size: contain;
   z-index: 10;
   width: inherit;
   height: inherit;
@@ -190,29 +206,68 @@ export default {
 
 .actions {
   display: flex;
-  height: 100px;
-  width: 100%;
+  padding: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 2px solid #3a3a3a;
 }
 
 .button {
   margin: 5px;
-  width: 50%;
+  width: 50px;
+  height: 50px;
+  background-size: 70%;
+  background-position: center;
+  background-color: #f1f1f1;
+  background-repeat: no-repeat;
+  border: 2px solid #000000;
+  border-radius: 20px;
+}
+
+.button:active {
+  opacity: .6;
+  transform: translateY(2px);
 }
 
 .reset {
-  background: no-repeat;
   background-image: url('assets/reset.png');
-  width: 50%;
-
 }
 .send {
-  background: no-repeat;
   background-image: url('assets/right-arrow.png');
-  width: 50%;
-  height: auto;
 }
 
-button:{
-  background: contain;
+.boat-display {
+  padding: 5px 1rem;
+  min-height: 80px;
+  width: 150px;
+  background-color: #8b8b8b;
+  border: 2px solid #3a3a3a;
+  border-radius: 8px 50% 50% 8px;
+}
+
+.boat-display > div {
+  display: inline;
+  height: 75px;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  background-size: contain;
+  background-image: url('assets/cancel.png');
+  height: 20px;
+  width: 20px;
+  top: -50px;
+  right: 0px;
+}
+
+.boat-display > div > .mob {
+   height: 75px;
+}
+
+
+body {
+  margin: 0;
+  background-color: #c7c7c7;
 }
 </style>
