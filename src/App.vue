@@ -27,7 +27,7 @@
       <div class="button reset" @click="reset"/>
     </div>
 
-    <div v-if="gameOver &&  ! win" class="game-over" @click="reset"><h1 class="game-over__text">Смэрть</h1></div>
+    <div v-if="gameOver" class="game-over" @click="reset"><h1 class="game-over__text">Смэрть</h1></div>
     <div v-if="allRight" class="game-over" @click="reset"><h1 class="game-over__text">Ура!!!</h1></div>
   </div>
 </template>
@@ -54,7 +54,6 @@ export default {
       boat:[],
       boatPosition: 'left',
       gameOver: false,
-      win: false,
     }
   },
   created() {
@@ -99,8 +98,6 @@ export default {
       this.boat = []
       this.tryToKill(this.left)
       this.tryToKill(this.right)
-      if (this.right.length >= 6 ) 
-        this.win = true
     },
     tryToKill(side)  {
       const evilGuys = side.filter(({isEvil}) => isEvil)
