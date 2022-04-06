@@ -45,7 +45,6 @@ export default {
     hint() {
       const variants = [ 13, 75, 60, 34, 58]
       const i = Math.round(this.time/80) % variants.length
-      console.log(i)
       return variants[i]
     }
   }

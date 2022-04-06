@@ -106,7 +106,7 @@ export default {
     tryToKill(side)  {
       const evilGuys = side.filter(({isEvil}) => isEvil)
       const kindGuys = side.filter(({isEvil}) => !isEvil)
-      console.log(evilGuys.length > kindGuys.length)
+
       if (evilGuys.length > kindGuys.length) {
         for (let guy of kindGuys) {
           this.gameOver = true;
