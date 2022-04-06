@@ -27,13 +27,16 @@
       <div class="button reset" @click="reset"/>
     </div>
 
-    <div v-if="gameOver" class="game-over" @click="reset"><h1 class="game-over__text">Смэрть</h1></div>
-    <div v-if="allRight" class="game-over" @click="reset"><h1 class="game-over__text">Ура!!!</h1></div>
+    <div v-if="gameOver" class="game-over" @click="reset">
+      <h1 class="game-over__text">Смэрть</h1>
+      <p class="game-over__text">Тапните, чтоб начать заново</p>
+    </div>
+    <div v-if="allRight" class="game-over dark"><win-screen/></div>
   </div>
 </template>
 
 <script>
-
+import WinScreen from './components/WinScreen.vue'
 class Mob {
   constructor(type, id, img, imgDed) {
     this.id = id
@@ -46,6 +49,7 @@ class Mob {
 export default {
   name: 'App',
   components: {
+    WinScreen,
   },
   data() {
     return {
@@ -61,7 +65,7 @@ export default {
   },
   computed: {
     allRight() {
-      return this.right.length >=  6
+      return this.right.length >= 6
     }
   },
   methods: {
@@ -173,14 +177,19 @@ export default {
 
 .game-over {
   position: fixed;
-  background-color: rgba(53, 53, 53, 0.651);
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
   text-align: center;
   z-index: 15;
+  padding-top: 150px;
 }
+
+.dark {
+  background-color: rgba(53, 53, 53, 0.651);
+}
+
 .boat {
   height: 100px;
   width: 150px;
@@ -197,8 +206,13 @@ export default {
 }
 
 .game-over__text {
+  width: 180px;
+  margin: 1rem auto;
   color: rgb(255, 255, 255);
-  margin-top: 150px;
+  text-shadow: -1px 1px 3px #000,
+    1px 1px 0 #000,
+    1px -1px 0 #000,
+    -1px -1px 0 #000;
 }
 
 .actions {
@@ -259,7 +273,7 @@ export default {
 }
 
 .boat-display > div > .mob {
-   height: 75px;
+  height: 75px;
 }
 
 
